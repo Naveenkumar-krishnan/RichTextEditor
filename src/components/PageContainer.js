@@ -1,73 +1,89 @@
-import React from 'react'
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import React from "react";
+import { Editor, EditorState, RichUtils } from "draft-js";
 import BlockStyleToolbar, {
   getBlockStyle
 } from "./blockStyles/BlockStyleToolbar";
 
 class PageContainer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
     this.state = {
-      editorState: EditorState.createEmpty(),
-    }
+      editorState: EditorState.createEmpty()
+    };
   }
 
-  
-  onChange = (editorState) => {
+  onChange = editorState => {
     this.setState({
-      editorState 
-    }) 
-  }
+      editorState
+    });
+  };
 
-  handleKeyCommand = (command) => {
-    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+  handleKeyCommand = command => {
+    const newState = RichUtils.handleKeyCommand(
+      this.state.editorState,
+      command
+    );
+
     if (newState) {
       this.onChange(newState);
-      return 'handled';
+
+      return "handled";
     }
-    return 'not-handled';
-  }
+
+    return "not-handled";
+  };
 
   onUnderlineClick = () => {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
-  }
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "UNDERLINE")
+    );
+  };
 
   onBoldClick = () => {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'))
-  }
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
+  };
 
   onItalicClick = () => {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'))
-  }
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
+    );
+  };
 
   toggleBlockType = blockType => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   };
 
-
   render() {
-    return(
+    
+    return (
       <div className="editorContainer">
         <div className="editorToolBar">
           <BlockStyleToolbar
-              editorState={this.state.editorState}
-              onToggle={this.toggleBlockType}
-            />
-          <button className="styleButton"  onClick={this.onUnderlineClick}>U</button>
-          <button className="styleButton" onClick={this.onBoldClick}><b>B</b></button>
-          <button className="styleButton" onClick={this.onItalicClick}><em>I</em></button>  
-        </div>              
+            editorState={this.state.editorState}
+            onToggle={this.toggleBlockType}
+          />
+          <button className="styleButton" onClick={this.onUnderlineClick}>
+            U
+          </button>
+          <button className="styleButton" onClick={this.onBoldClick}>
+            <b>B</b>
+          </button>
+          <button className="styleButton" onClick={this.onItalicClick}>
+            <em>I</em>
+          </button>
+        </div>
         <div className="editors">
-          <Editor 
+          <Editor
             editorState={this.state.editorState}
             handleKeyCommand={this.handleKeyCommand}
-            onChange= { this.onChange }
+            onChange={this.onChange}
             blockStyleFn={getBlockStyle}
-            />
+          />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default PageContainer
+export default PageContainer;
