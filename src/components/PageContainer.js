@@ -63,10 +63,10 @@ class PageContainer extends React.Component {
             editorState={this.state.editorState}
             onToggle={this.toggleBlockType}
           />
-          <button className="styleButton" onClick={this.onUnderlineClick}>
+          <button className="styleButton"  onClick={this.onUnderlineClick}>
             U
           </button>
-          <button className="styleButton" onClick={this.onBoldClick}>
+          <button className="styleButton"  onClick={this.onBoldClick}>
             <b>B</b>
           </button>
           <button className="styleButton" onClick={this.onItalicClick}>
